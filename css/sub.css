@@ -73,6 +73,9 @@ html{
 details{
     max-width:100%;
 }
+summary{
+    cursor:pointer;
+}
 a{
     text-decoration:none;
 }
