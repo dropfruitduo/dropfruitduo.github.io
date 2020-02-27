@@ -16,20 +16,69 @@
                 <h2>A tool used by our educations coordinator to plan lessons and add them to the outlook calendar.</h2>
             </div>
             <div class="panels">
-                <section>
-                    <div class="panel">
+                <div class="imagecontainer">
+                    <input type="checkbox" id="zoomMainWindowPlato">
+                    <label for="zoomMainWindowPlato">
                         <img src="images/plato1.png" alt="The main window of PlaTo" class="application">
-                    </div>
-                </section>
+                    </label>
+                </div>
+                <div class="info">
+                    <p>
+            PlaTo is an inhouse Windows Application in C#
+            that works with the Outlook API to automatically send series of appointments to Calco employees.
+            Earlier Calco Masterclass employees built this application. Me and two others took over operations when they left.
+            The application loads a list of appointments from a local database. 
+                    </p>
+                    <p>
+            While working on this application I've learned a lot about working with Git in Visual Studio. 
+            Working on the application with three different people was very easy this way.
+                    </p>
+            
+  
+                    <p>I started working on this application to implement a different planning for the lessons.
+                        Instead of the appointments being planned on certain day of the week, they will be planned a certain day after the beginning.</p>
+                        <details>
+                            <summary>Part of the code that returns the desired business day.</summary>
+                            <pre class="code expand">
+if (IsMC02)
+{
+    // This is a separate check, because the date of the conclusion is not based on daynumber.
+    if (message.Contains("Afsluiting"))
+    {
+        // The 'Conclusion' is at the end of the trial period, which is 2 months, so we add 2 months to the startTime.
+        check_dt = startDate_dt.AddMonths(2);
 
-                <section>
-                    <div class="panel">
-                        <p>I started working on this application to implement a different schedule for the crashcourse.
-                            Instead of the appointments
-                        </p>
-                    </div>
-                </section>
+        result_check_dt = conclusionLoop(check_dt);
+    }
+    else
+    {
+        int i = 0;
 
+        //Lower the date by one so the while loop works from the first iteration
+        DateTime correctDate = check_dt.AddDays(-1);
+        while (i <= daynumber)
+        {
+            correctDate = correctDate.AddDays(1);
+
+            //check if the date is a non working day
+            if ((checkSaturday(correctDate) == true)
+                || (checkSunday(correctDate) == true)
+                || (checkHoliday(correctDate) == true))
+            {
+                continue;
+            }
+
+            ++i;
+        }
+
+        result_check_dt = correctDate;
+    }
+
+    addDateToMC02List(result_check_dt);
+}
+                        </pre>
+                    </details>
+                </div>
             </div>
         </main>
     </div>
