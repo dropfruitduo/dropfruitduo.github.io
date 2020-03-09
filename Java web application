@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlaTo</title>
+    <link rel="stylesheet" href="css/sub.css">
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <div class="header">
+                <h1>Java web application</h1>
+                <h2>A course on building a library application using JSF.</h2>
+            </div>
+            <div class="panels">
+                <div>
+                  
+                </div>
+                <div class="info">
+                    In this course I have built a library application that can lend out books and return them.
+                    I have learned a lot about designing Java Classes. 
+                    For instance I set up a Book, Copy, Employee, Loan, Category and Database class.
+                    I used Stored Procedures in SQL Server to get data from the database to display to the user.
+                    <details>
+                    <summary>Part of the Book Class</summary>
+                    <pre class="code expand">
+                    	public String getBoekNummer() throws NamingException, SQLException {
+  if(boekNummer == null) {
+    try{
+      Database database = new Database();
+      String lastNummer = database.getMaxBoekNummer();
+      int newNummer = Integer.parseInt(lastNummer.substring(2,5));
+      newNummer += 1;
+      boekNummer = String.format("CA%03d", newNummer);
+    }catch (SQLException sqle) {
+      FacesContext context = FacesContext.getCurrentInstance();
+      context.addMessage(null, new FacesMessage("Het boeknummer kan niet worden opgehaald."));
+      sqle.printStackTrace();				
+    }catch (NamingException ne) {
+      FacesContext context = FacesContext.getCurrentInstance();
+      context.addMessage(null, new FacesMessage("De database kan niet worden benaderd"));
+      ne.printStackTrace();
+    }
+  }
+  return boekNummer;
+}
+  </pre></details>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
