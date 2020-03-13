@@ -17,10 +17,154 @@
             </div>
             <div class="panels">
                 <div>
-
                 </div>
                 <div class="info">
-                    
+                    In this course we used the book 'OO-Programmeren in Java met BlueJ' to learn the basics of Java.
+                    The books opens with topics like 'What is a class', How do you create an object' and 'What are constructors and methods' 
+                    and works its way towards handling exceptions, implementing interfaces, inheritance and polymorphism.
+                    On the way there are a number of excercises, for instance a small program that will compare the number of opening brackets with the number of closing brackets.
+                    <details>
+                        <summary>Part of the code of this brackets counting program
+                        </summary>
+                        <pre>
+                        /**
+ * AccoladesTellen geeft een bestand met Java code met regelnummers.
+ * Daarna geeft hij aan of het aantal openingsaccolades gelijk is aan het aantal sluitaccolades.
+ */
+import java.io.*;
+
+public class AccoladesTellen {
+  public static void main( String[] args ) {
+    BufferedReader in;
+    String regel;
+    String chars;
+    
+    int regelnummer = 1;
+    int startaccolades = 0;
+    int eindaccolades = 0;
+    char startaccolade = '{';
+    char eindaccolade = '}' ;
+    
+    
+    try {  
+      in = new BufferedReader( new FileReader( "C:/Opgave8.20.1.txt"  ) );
+      
+      while ( ( regel = in.readLine() ) != null ) { 
+        System.out.println( regelnummer+ " :"  + regel );
+        for (int i=0; i< regel.length(); i++){
+            if(regel.charAt(i)== startaccolade  ){
+                startaccolades++;
+            }
+            else if(regel.charAt(i) == eindaccolade  ){
+                eindaccolades++;
+                }
+            }
+        regelnummer++;
+      }
+      
+      if (startaccolades == eindaccolades){
+          System.out.println("Er zijn evenveel startaccolades als eindaccolades"  );
+      }
+      else {
+         System.out.println("Oei, er zijn niet evenveel startaccolades als eindaccolades"  );
+      } 
+      in.close();
+    }
+    catch( FileNotFoundException e ) {
+      System.out.println( "Kan bestand niet vinden" );
+    }
+    catch( IOException e ) {
+      System.out.println( "Fout bij het lezen of sluiten bestand" );
+      e.printStackTrace();
+    }
+  }
+}
+                        </pre>
+                        </details>
+                        The book also has a chapter on creating buttons, panels and textfields. 
+                        One excercise is creating a program that calculates the square root of a program.
+                        <details>
+                            <summary>Part of the code for this square root program</summary>
+                            <pre>
+    /**
+     * Constructor voor objects van class Wortel
+     */
+    public Wortel()
+    {
+        double uitkomst = 0;
+        paneel = new JPanel ();
+        paneel.setLayout(null);
+        
+        //maak de elementen van het paneel
+        invoer = new JTextField();  
+        uitvoer = new JTextField();
+        invoerlabel = new JLabel("Voer hier een getal in" );
+        uitvoerlabel = new JLabel("De wortel is:" );
+        knop = new JButton("Bereken" );
+       
+        //positioneer de elementen
+        invoerlabel.setBounds(100,10,150,20);
+        invoer.setBounds(100,30,150,20);
+        knop.setBounds(100,50,120,20);
+        uitvoerlabel.setBounds(100,80,150,20);
+        uitvoer.setBounds(100,110,150,20);
+        
+        //voeg de elementen toe aan het paneel
+        paneel.add(invoerlabel);
+        paneel.add(invoer);
+        paneel.add(knop);
+        paneel.add(uitvoerlabel);
+        paneel.add(uitvoer);
+
+        knop.addActionListener(new KnopHandler() );
+        
+        setContentPane(paneel);
+    }
+
+    class KnopHandler implements ActionListener{
+        public void actionPerformed ( ActionEvent e){
+            try{
+               //maak van het ingevoerde een getal
+            uitkomst = Double.parseDouble(invoer.getText());
+            uitkomst = Math.sqrt(uitkomst);
+            if(Double.isNaN(uitkomst) == true){
+                 //als er een mingetal wordt ingevoerd
+                throw new ArithmeticException();
+            }else{
+               uitvoer.setText("" + uitkomst);    }   
+            }catch(NumberFormatException nfe){
+                //als er iets wordt ingevoerd dat geen getal is
+                JOptionPane.showMessageDialog( paneel,
+                "Voer een getal in",
+                "Fout" ,
+                JOptionPane.ERROR_MESSAGE
+                );                  
+            }
+            catch( ArithmeticException ae){               
+                JOptionPane.showMessageDialog( paneel,
+                "Voer een positief getal in",
+                "Fout" ,
+                JOptionPane.ERROR_MESSAGE
+                );
+            }
+            
+        }
+    }
+    
+        public static void main(String args[])
+    {
+        JFrame frame = new Wortel();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Wortel" );
+        frame.setBounds(100,100,320,400);
+        frame.setVisible(true);
+    }
+    
+    
+}
+                            </pre>
+                        </details>
+                            
                 </div>
             </div>
         </main>
