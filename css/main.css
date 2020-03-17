@@ -2,7 +2,7 @@
     box-sizing: border-box;
   }
 
-  @media (min-width: 500px) {
+  @media (min-width: 550px) {
     .panels { grid-template-columns: repeat(2, 1fr); }
   }
   @media (min-width: 900px) {
@@ -10,6 +10,9 @@
   }
 html,body{
     font-family: 'Helvetica', sans-serif;
+}
+html{
+    overflow-y:scroll;
 }
   .container{
     width:100%;
@@ -73,8 +76,9 @@ a{
 }
 .header{
     margin:auto;
-    max-width:600px;
+    max-width:550px;
     padding: 0px 10px;
+    height:250px;
 }
 .info{
     height:200px;
@@ -94,6 +98,8 @@ h1{
     font-size:400%;
     letter-spacing:-1px;
     color:rgb(255, 0, 115);
+    margin:0px;
+    padding:30px 0px 10px 0px;
 }
 h2{
     text-transform: lowercase;
@@ -104,9 +110,6 @@ h3{
     color:#ffffff;
     font-size:200%;
     margin:0;
-}
-.info p{
-    color:#696969;
 }
 .panel p{
     color:white;
