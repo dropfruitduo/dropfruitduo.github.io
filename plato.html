@@ -12,34 +12,46 @@
     <div class="container">
         <main>
             <div class="header">
+                <a href="home.html" id="backToHome">&lt;&lt; </a>
                 <h1>PlaTo</h1>
                 <h2>A tool used by our educations coordinator to plan lessons and add them to the outlook calendar.</h2>
             </div>
             <div class="panels">
                 <div class="imagecontainer">
-                    <input type="checkbox" id="zoomMainWindowPlato">
-                    <label for="zoomMainWindowPlato">
-                        <img src="images/plato1.png" alt="The main window of PlaTo" class="application">
-                    </label>
+                        <figure>
+                            <a href="#mainWindow">
+                            <img src="images/plato1.png" alt="The main window of PlaTo">
+                        </a>
+                            <figcaption >The main window of PlaTo.</figcaption>
+                        </figure>
+
+                    <a href="#_" id="mainWindow" class="lightbox">
+                        <figure>
+                            <img src="images/plato1.png" alt="The main window of PlaTo">
+                            <figcaption>The main window of PlaTo.</figcaption>
+                        </figure>
+                    </a>
                 </div>
                 <div class="info">
                     <p>
-            PlaTo is an inhouse Windows Application in C#
-            that works with the Outlook API to automatically send series of appointments to Calco employees.
-            Earlier Calco Masterclass employees built this application. Me and two others took over operations when they left.
-            The application loads a list of appointments from a local database. 
+                        PlaTo is an inhouse Windows Application in C#
+                        that works with the Outlook API to automatically send series of appointments to Calco employees.
+                        Earlier Calco Masterclass employees built this application. Me and two others took over
+                        operations when they left.
+                        The application loads a list of appointments from a local database.
+                        <strong>Read on to learn about several problems we encountered and things I've learned.</strong>
                     </p>
                     <p>
-            While working on this application I've learned a lot about working with Git in Visual Studio. 
-            Working on the application with three different people was very easy this way.
+                        While working on this application I've learned a lot about working with Git in Visual Studio.
+                        Working on the application with three different people was very easy this way.
+                        We used tags to keep track of versions, but only realized later we had to push tags separately.
                     </p>
-            
-  
                     <p>I started working on this application to implement a different planning for the lessons.
-                        Instead of the appointments being planned on certain day of the week, they will be planned a certain day after the beginning.</p>
-                        <details>
-                            <summary>Part of the code that returns the desired business day.</summary>
-                            <pre class="code expand">
+                        Instead of the appointments being planned on certain day of the week, they will be planned a
+                        certain day after the beginning.</p>
+                    <details>
+                        <summary>Part of the code that returns the desired business day.</summary>
+                        <pre>
 if (IsMC02)
 {
     // This is a separate check, because the date of the conclusion is not based on daynumber.
@@ -78,6 +90,67 @@ if (IsMC02)
 }
                         </pre>
                     </details>
+                    <p>
+                        We also encountered a problem concerning double booked rooms,
+                        which shouldn't be possible, considering PlaTo checks the availability of each room before
+                        planning an appointment.
+                        The strange thing about this problem was the fact the appointments appeared in the schedule of a
+                        room, but PlaTo still planned something on top of it.
+                        We realized after testing that a room could be invited for an appointment, but not be set as the location, 
+                        even though the location attribute of that appointment was correct.
+                        We found out that the location attribute is merely a string, and apparently does not mean this location is actually booked.
+                        This caused the room to still be available. Thus we made sure a room was immediately set to a
+                        resource after adding it to an appointment, which causes the room to be booked.
+                        <details>
+                            <summary>
+                                Part of the code of adding rooms to appointments.
+                            </summary>
+                            <pre>
+foreach (Classroom room in roomPreference)
+{
+    i++;
+    if (!IsLocationAvailable(room.EmailAddress, appointment.Start, appointment.Duration))
+    {
+        continue;
+    }
+
+    Outlook.Recipient oRecip = appointment.Recipients.Add(room.EmailAddress);
+    oRecip.Type = (int)Outlook.OlMeetingRecipientType.olResource;
+    oRecip.Resolve();
+
+    if (room.Name.Equals("ING"))
+    {
+        Classroom room2 = DeVolksbank;
+        Outlook.Recipient oRecip2 = appointment.Recipients.Add(room2.EmailAddress);
+        oRecip2.Type = (int)Outlook.OlMeetingRecipientType.olResource;
+        oRecip2.Resolve();
+    }
+
+    break;
+}
+                            </pre>
+                        </details>
+                    </p>
+                    <p>
+                        I also learned a lot about navigating feature requests from stakeholders,
+                        as the teachers were not always clear in their wishes and ideas.
+                        For example, a certain course was scheduled manually by the educations coordinator,
+                        and the teachers informed her that this should be planned by PlaTo, a request that fell to me to
+                        implement.
+                        However they didn't specify a starting time for these appointments, which is necessary for PlaTo
+                        to work.
+                        After inquiring about the times, the teachers concluded that they wanted to stay flexible and
+                        decided not to automatically plan the course.
+                        The coordinator wasn't very happy about this of course! So after another inquiry we decided to
+                        use dummy times for now, which the teachers could change if they wanted to.
+                        I realized after all this, it would have been better to schedule a short meeting with all three
+                        of us and to document our decision.
+                        I was happy however with the fact that I tried to communicate clearly about what was possible
+                        and what wasn't,
+                        and what we could do to create a solution for everyone.
+
+                    </p>
+
                 </div>
             </div>
         </main>
