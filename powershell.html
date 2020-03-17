@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell course</title>
+    <link rel="stylesheet" href="css/sub.css">
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <div class="header">
+                <a href="home.html" id="backToHome">&lt;&lt; </a>
+                <h1>PowerShell</h1>
+                <h2>After following the course myself, I made adjustments to improve the course.</h2>
+            </div>
+            <div class="panels">
+                <div class="imagecontainer">
+                </div>
+                <div class="info">
+                    <p>
+                    In this course we used the PowerShell ISE.
+                    During this course I noticed a lot of mismatches concerning test questions and answers.
+                    For instance the following question was on the very first quiz:
+                    </p>
+                    <p class="question">Which command shows the help article in a new window?</p>
+                    The correct answer was:
+                    <p class="answer">Get-Help Command -ShowWindow</p>
+                    <p>Even though -ShowWindow is the correct switch to open the help in a new window, 
+                        this won't work because Command is not the name of a help article.
+                    What will work is the following:
+                    </p>
+                    <p class="answer">Get-Help Get-Command -ShowWindow</p>
+                    <p>After I saw this, I checked every question for mistakes like this,
+                    and also tried to understand why it worked the way it worked, just like in this question.
+                    I feel these things can cause a lot of confusion if you're not fully immersed in the topic.
+                    </p>
+                    <p>For instance in part of the lesson about -match, I encountered a sentence: 
+                    "you can also use regular expressions here". However if you don't know what regular expressions are this is very confusing.
+                    So I did my best to write a short explanation, which obviously can't cover everything about regular expressions.
+                </p>
+                <details><summary>Part of my explanation about regular expressions</summary>
+                   <div class="extrainfo"> <p>Een regular expression, vaak afgekort tot regex, is een tekstreeks die een zoekpatroon definieert. Regexes wordt niet alleen in PowerShell gebruikt, maar ook bijvoorbeeld in heel veel andere programmeertalen, in zoekmachines en in tekstverwerkers.
+                    </p>
+                    <p>Je maakt bij regex gebruik van speciale karakters om bepaalde tekens aan te geven, net zoals we hiervoor bij -Like ? en * als speciale karakters gebruikten. Ook kun je nog steeds zoeken met normale letters, woorden en cijfers.
+                    </p>
+                    <ul><li>De .(=punt) betekent "iets"; een willekeurig teken.</li>
+                    <li>Het * (=sterretje) betekent nul of meer van het vorige teken.</li>
+                    <li>Dus .* betekent nul of meer van iets.</li>
+                </ul>
+                    Voorbeelden:
+                    <ul>
+                    <li>   "One" -match ".*"                                 geeft True als resultaat</li> 
+                    <li>"One", "Two", "Three" -match "T.*"                   geeft Two en Three als resultaat</li>
+                    </ul>
+                    Ook geldt het volgende:
+                    <ul>
+                    <li>Met | kun je twee opties aangeven.</li>
+                    <li>Met ( ) kun je tekens groeperen.</li>
+                    <li>Met [ ] kun je een reeks aangeven voor een teken.</li>
+                    </ul>
+                    Voorbeelden:
+                    <ul>    
+                   <li> "Aap", "Aal", "Aardvark" -match "Aa(p|l)"         geeft Aap en Aal als resultaat</li>
+                    <li>"Aap","Aal", "Aap 9" -match "[a-z]*[0-9]"          geeft Aap 9 als resultaat</li>
+                </ul>
+                    <p>Met regex kun je nog veel meer. Het klassieke voorbeeld is het controleren of een ingevoerde reeks een correct e-mailadres is. Die regex ziet er bijvoorbeeld zo uit:</p>
+                                   <p class="answer">^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$</p>
+                                </div>
+                                </details>
+
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

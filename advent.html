@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent of code</title>
+    <link rel="stylesheet" href="css/sub.css">
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <div class="header">
+                <a href="home.html" id="backToHome">&lt;&lt; </a>
+                <h1>Advent of code</h1>
+                <h2>Using python I did several problems of the advent of code</h2>
+            </div>
+            <div class="panels">
+                <div class="imagecontainer">
+                </div>
+                <div class="info">
+                    <p>Advent of code is a month long coding challenge in december.
+                        There are two problems every day, and they get harder as the month progresses.
+                        <a href="http://www.adventofcode.com/2019">You can view all problems here.</a></p>
+
+                    <p> I did several problems from day 1 to 12, after that the problems took me a bit too long!
+                        I learned about iter, split and zip in python. I also learned about lambda expressions.
+                    </p>
+                    <p>On day 1 it started out simple; you received a list of numbers and had to calculate the sum of
+                        the numbers, after an operation on those numbers was performed.
+                        Part of my solution:
+                        <pre>
+for z in x:
+  while(z>0):
+    z=math.floor(z/3)-2
+    if z>0:
+      y.append(z)
+
+print(sum(y))
+                            </pre>
+                    </p>
+                    <p>On day six it was already a bit more complicated. Actually explaining the problem is complicated!
+                        <a href="https://adventofcode.com/2019/day/6">You can view the problem of day six here.</a>
+                    </p>
+                    <details>
+                        <summary>
+                            My solution for day six
+                        </summary>
+                        <pre>
+aux = ''
+z=','.join(iter(input, aux))
+map1=z.split(',')
+
+map2=[]
+for x in map1:
+    y=x.index(')')
+    a=x[0:y]
+    b=x[y+1:]
+    map2.append((a,b))
+
+map2.reverse()
+
+total=0
+for planet in map2:
+    line=0
+    y=planet[1]
+    i=0
+    while i&lt;len(map2):
+    z=map2[i]
+    if y == z[1]:
+        line+=1
+        y=z[0]
+        i=0
+    else:
+        i+=1
+    total+=line
+
+print(total)
+                       </pre>
+                    </details>
+                    <p>On day 12 I wrote a solution for the first question, which was a simple kind of three body problem.
+                    Given four moons with position and starting velocity zero, give the total energy in the system after 1000 iterations.</p>
+                    <details>
+                        <summary>
+                            My solution for the problem of day 12.
+                        </summary>
+                        <pre>
+io = [-17, 9, -5, 0, 0, 0]
+europe = [-1, 7, 13, 0, 0, 0]
+ganymede = [-19, 12, 5, 0, 0, 0]
+callisto = [-6, -6, -4, 0, 0, 0]
+
+planets = [io, europe, ganymede, callisto]
+
+
+def poteng(planet):
+    total = 0
+    for i in range(3):
+        total += abs(planet[i])
+    return total
+
+
+def kineng(planet):
+    total = 0
+    for i in range(3, 6, 1):
+        total += abs(planet[i])
+    return total
+
+
+def totaleng(planet):
+    return kineng(planet) * poteng(planet)
+
+def velchange(planet1, planet2):
+    change1 = [0, 0, 0]
+    xchange = 0
+    ychange = 0
+    zchange = 0
+    if planet1[0] - planet2[0] != 0:
+        xchange = (planet1[0] - planet2[0]) / abs(planet1[0] - planet2[0])
+    if planet1[1] - planet2[1] != 0:
+        ychange = (planet1[1] - planet2[1]) / abs(planet1[1] - planet2[1])
+    if planet1[2] - planet2[2] != 0:
+        zchange = (planet1[2] - planet2[2]) / abs(planet1[2] - planet2[2])
+    change1 = [-xchange, -ychange, -zchange]
+    return change1
+
+for i in range(1000):
+    for s in planets:
+        schange = [0, 0, 0]
+        for t in planets:
+            schange = [sum(x) for x in zip(schange, velchange(s, t))]
+        for j in range(3):
+            s[j+3] += schange[j]
+    for s in planets:
+        for j in range(3):
+            s[j]+=s[j+3]
+
+eng = sum(list(map(totaleng, planets)))
+
+print(eng)
+
+                    </pre>
+                    </details>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
