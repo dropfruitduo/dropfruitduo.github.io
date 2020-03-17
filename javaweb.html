@@ -2,37 +2,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Web Application</title>
-    <link rel="stylesheet" href="css/sub.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Web Application</title>
+  <link rel="stylesheet" href="css/sub.css">
 </head>
 
 <body>
-    <div class="container">
-        <main>
-            <div class="header">
-                <h1>Java web application</h1>
-                <h2>A course on building a library application using JSF.</h2>
-            </div>
-            <div class="panels">
-                <div class="imagecontainer">
-                    <input type="checkbox" id="zoomBiebImage1">
-                    <label for="zoomBiebImage1">
-                      <img src="images/bieb.png" class="application">
-                    </label>
-                    
-                </div>
-                <div class="info">
-                    <p>
-                    In this course I have built a library application that can lend out books and return them.
-                    I have learned a lot about designing Java Classes. 
-                    For instance I set up a Book, Copy, Employee, Loan, Category and Database class.
-                    I used Stored Procedures in SQL Server to get data from the database to display to the user.
-                    </p>
-                    <details>
-                    <summary>Part of the Book Class</summary>
-                    <pre class="code expand">
+  <div class="container">
+    <main>
+      <div class="header">
+        <a href="home.html" id="backToHome">&lt;&lt; </a>
+        <h1>Java web application</h1>
+        <h2>A course on building a library application using JSF.</h2>
+      </div>
+      <div class="panels">
+        <div class="imagecontainer">
+
+          <figure>
+            <a href="#biebimg1">
+              <img src="images/bieb.png">
+            </a>
+            <figcaption>Part of the application that lends out books. </figcaption>
+          </figure>
+          <a href="#_" class="lightbox" id="biebimg1">
+            <figure >
+              <img src="images/bieb.png">
+              <figcaption>
+                Part of the application that lends out books.
+              </figcaption>
+            </figure>
+          </a>
+        </div>
+        <div class="info">
+          <p>
+            In this course I built a library application that can lend out books and return them.
+            I have learned a lot about designing Java Classes.
+            For instance I set up a Book, Copy, Employee, Loan, Category and Database class.
+          </p>
+          <details>
+            <summary>Part of the Book Class</summary>
+            <pre class="code expand">
 public String getBoekNummer() throws NamingException, SQLException {
   if(boekNummer == null) {
     try{
@@ -53,11 +63,41 @@ public String getBoekNummer() throws NamingException, SQLException {
   }
   return boekNummer;
 }
-  </pre></details>
-                </div>
-            </div>
-        </main>
-    </div>
+  </pre>
+          </details>
+          <p>
+            I used Stored Procedures in SQL Server to get data from the database to display to the user.
+            <details>
+              <summary>Part of the code to create a stored procedure for retrieving all books in possession of an employee.</summary>
+              <pre>
+CREATE PROCEDURE [dbo].[Get_Medewerker_Boeken] 
+	@Medewerker_ID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	Select
+		b.BoekNummer 
+	,	e.ExemplaarVolgnummer
+	,	ltrim(rtrim(b.Titel)) As Titel
+	,	u.DatumUitleen
+	,	u.DatumInleveren
+
+	From
+		Boeken b join Exemplaren e on b.Boek_ID = e.Boek_ID join uitleningen u on u.Exemplaar_ID = e.Exemplaar_ID
+	WHERE u.medewerker_id = @Medewerker_ID
+END
+
+              </pre>
+            </details>
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
 </body>
 
 </html>
