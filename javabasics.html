@@ -12,21 +12,55 @@
     <div class="container">
         <main>
             <div class="header">
+              <a href="home.html" id="backToHome">&lt;&lt; </a>
                 <h1>Java basics</h1>
                 <h2>An introduction to object oriented programming</h2>
             </div>
             <div class="panels">
-                <div>
+                <div class="imagecontainer">
+                    <figure>
+                        <a href="#boekjava">
+                          <img src="images/boekjava.jpg">
+                        </a>
+                        <figcaption>The cover of the book. </figcaption>
+                      </figure>
+                      <a href="#_" class="lightbox" id="boekjava">
+                        <figure >
+                          <img src="images/boekjava.jpg">
+                          <figcaption>
+                            The cover of the book.
+                          </figcaption>
+                        </figure>
+                      </a>
                 </div>
                 <div class="info">
-                    In this course we used the book 'OO-Programmeren in Java met BlueJ' to learn the basics of Java.
+                    <p>In this course we used the book 'OO-Programmeren in Java met BlueJ' to learn the basics of Java.
                     The books opens with topics like 'What is a class', How do you create an object' and 'What are constructors and methods' 
-                    and works its way towards handling exceptions, implementing interfaces, inheritance and polymorphism.
-                    On the way there are a number of excercises, for instance a small program that will compare the number of opening brackets with the number of closing brackets.
+                    and works its way towards handling exceptions, implementing interfaces, inheritance and polymorphism.</p>
+                    <p>On the way there are a number of excercises, for instance a small program that will compare the number of opening brackets with the number of closing brackets.</p>
                     <details>
                         <summary>Part of the code of this brackets counting program
                         </summary>
-                        <pre> 
+                        <pre>
+                        /**
+ * AccoladesTellen geeft een bestand met Java code met regelnummers.
+ * Daarna geeft hij aan of het aantal openingsaccolades gelijk is aan het aantal sluitaccolades.
+ */
+import java.io.*;
+
+public class AccoladesTellen {
+  public static void main( String[] args ) {
+    BufferedReader in;
+    String regel;
+    String chars;
+    
+    int regelnummer = 1;
+    int startaccolades = 0;
+    int eindaccolades = 0;
+    char startaccolade = '{';
+    char eindaccolade = '}' ;
+    
+    
     try {  
       in = new BufferedReader( new FileReader( "C:/Opgave8.20.1.txt"  ) );
       
@@ -57,10 +91,13 @@
     catch( IOException e ) {
       System.out.println( "Fout bij het lezen of sluiten bestand" );
       e.printStackTrace();
+    }
+  }
+}
                         </pre>
                         </details>
-                        The book also has a chapter on creating buttons, panels and textfields. 
-                        One excercise is creating a program that calculates the square root of a number.
+                        <p>The book also has a chapter on creating buttons, panels and textfields. 
+                        One excercise is creating a program that calculates the square root of a program.</p>
                         <details>
                             <summary>Part of the code for this square root program</summary>
                             <pre>
